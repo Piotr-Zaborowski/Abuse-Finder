@@ -37,8 +37,6 @@ def ShortenURL(domainName): #shortening URL for it just to ba a diomain adress
                 return domainName[0:domainName.index(str2)]
             else:
                 return domainName;
-
-    #print(startplece)
     endaplace = domainName.index(str2, startplece+1)
     shortenDomainName = domainName[startplece:endaplace]
     return shortenDomainName
