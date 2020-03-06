@@ -1,5 +1,3 @@
 onet.pl
-jbzd.pl
-amw.pl
-nask.pl
 google.com
+news.ru
