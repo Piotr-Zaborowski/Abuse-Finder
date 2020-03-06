@@ -1,5 +1,5 @@
 onet.pl
-jbzd.pl
+www.jbzd.pl
 amw.pl
 nask.pl
 google.com

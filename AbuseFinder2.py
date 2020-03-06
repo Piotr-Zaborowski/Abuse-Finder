@@ -24,10 +24,33 @@ def FindByMail(resstring): #Function finds abuse emial adress by searching for a
     abusemail = resstring[abuseplace:endabuseplace]  # abuse email adress found
     return abusemail
 
+def ShortenURL(domainName): #shortening URL for it just to ba a diomain adress
+    str1 = 'https://';
+    str2 = '/';
+    srt3 = 'http://'
+    if ('https://' in domainName):
+        startplece = domainName.index(str1)+8
+    else:
+        if ('http://' in domainName):
+            startplece = domainName.index(srt3)+7
+        else:
+            if ('/' in domainName):
+                return domainName[0:domainName.index(str2)]
+            else:
+                return domainName;
+
+    #print(startplece)
+    endaplace = domainName.index(str2, startplece+1)
+    shortenDomainName = domainName[startplece:endaplace]
+    return shortenDomainName
+
+
+
 
 # Using readline()
 file1 = open('doobrobki.txt', 'r')
 count = 0
+
 
 while True:
     count += 1
@@ -40,7 +63,8 @@ while True:
     finalstring=''
     if not line:
         break
-    domainName=line.strip()
+    NotCheckeURL=line.strip()
+    domainName=ShortenURL(NotCheckeURL)
     #print(domainName)
     try:
         ipadresss = (socket.gethostbyname(domainName))  # Getting IP adress for given www
