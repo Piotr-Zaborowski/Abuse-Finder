@@ -16,7 +16,6 @@ def FindByString(resstring):    #Function finding abuse by string of "type": "ab
 
 
 def FindByMail(resstring): #Function finds abuse emial adress by searching for abuse@
-    #print("Using function")
     str1 = '"';
     str2 = "abuse@";
     abuseplace = resstring.index(str2)  # finding abuse email adress
