@@ -41,6 +41,19 @@ def ShortenURL(domainName): #shortening URL for it just to ba a diomain adress
     shortenDomainName = domainName[startplece:endaplace]
     return shortenDomainName
 
+def DecypherURL(domainName): #Function for replacing hxxps:// , hxxp:// , [.]
+    toreturndots=domainName.replace('[.]','.')
+
+
+
+    if ('hxxps://' in domainName):
+        newtoreturndots=domainName.replace("hxxps://","https://")
+    else:
+        if ('hxxp://' in domainName):
+            newtoreturndots=domainName.replace('hxxp://','http://')
+        else:
+            return toreturndots
+    return newtoreturndots
 
 
 
@@ -61,7 +74,8 @@ while True:
     if not line:
         break
     NotCheckeURL=line.strip()
-    domainName=ShortenURL(NotCheckeURL)
+    NotDecyphered=ShortenURL(NotCheckeURL)
+    domainName=DecypherURL(NotDecyphered)
     #print(domainName)
     try:
         ipadresss = (socket.gethostbyname(domainName))  # Getting IP adress for given www
