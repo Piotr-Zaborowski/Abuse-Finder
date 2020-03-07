@@ -55,7 +55,6 @@ def FindAbuse(NotCheckedURL): #main function, that returns abuse email adress fo
     finalstring = ''
     NotDecyphered = ShortenURL(NotCheckedURL)
     domainName = DecypherURL(NotDecyphered)
-    # print(domainName)
     try:
         ipadresss = (socket.gethostbyname(domainName))  # Getting IP adress for given www
         obj = IPWhois(ipadresss)
