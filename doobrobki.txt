@@ -1,3 +1,5 @@
 onet.pl
 google.com
 news.ru
+morele.net
+upc.pl

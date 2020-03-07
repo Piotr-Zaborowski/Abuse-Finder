@@ -14,7 +14,6 @@ def FindByString(resstring):    #Function finding abuse by string of "type": "ab
         abusemail=FindByMail(resstring)
     return abusemail
 
-
 def FindByMail(resstring): #Function finds abuse emial adress by searching for abuse@
     str1 = '"';
     str2 = "abuse@";
@@ -43,9 +42,6 @@ def ShortenURL(domainName): #shortening URL for it just to ba a diomain adress
 
 def DecypherURL(domainName): #Function for replacing hxxps:// , hxxp:// , [.]
     toreturndots=domainName.replace('[.]','.')
-
-
-
     if ('hxxps://' in domainName):
         newtoreturndots=domainName.replace("hxxps://","https://")
     else:
@@ -55,44 +51,36 @@ def DecypherURL(domainName): #Function for replacing hxxps:// , hxxp:// , [.]
             return toreturndots
     return newtoreturndots
 
+def FindAbuse(NotCheckedURL): #main function, that returns abuse email adress for any giver URL
+    finalstring = ''
+    NotDecyphered = ShortenURL(NotCheckedURL)
+    domainName = DecypherURL(NotDecyphered)
+    # print(domainName)
+    try:
+        ipadresss = (socket.gethostbyname(domainName))  # Getting IP adress for given www
+        obj = IPWhois(ipadresss)
+        results = obj.lookup_rdap(depth=1)  # getting whois info
+        resstring = json.dumps(results)  # getting string from results which is a dict
+        # print(resstring)           #used for debugging and showing full whois info
+        abusemail = FindByString(resstring)
+        finalstring = finalstring + abusemail + ' ' + domainName + ' ' + ipadresss
+    except socket.error:
+        print(domainName+" ERROR_Incorrect_web_adress_given_ERROR")
+    return finalstring
+
 
 
 # Using readline()
 file1 = open('doobrobki.txt', 'r')
 count = 0
 
-
 while True:
     count += 1
-
-    # Get next line from file
     line = file1.readline()
-
-    # if line is empty
-    # end of file is reached
-    finalstring=''
     if not line:
         break
-    NotCheckeURL=line.strip()
-    NotDecyphered=ShortenURL(NotCheckeURL)
-    domainName=DecypherURL(NotDecyphered)
-    #print(domainName)
-    try:
-        ipadresss = (socket.gethostbyname(domainName))  # Getting IP adress for given www
-        #print(ipadresss)
-        obj = IPWhois(ipadresss)
-        results = obj.lookup_rdap(depth=1)  # getting whois info
-        resstring = json.dumps(results)  # getting string from results which is a dict
-
-        #print(resstring)           #used for debugging and showing full whois info
-
-        abusemail=FindByString(resstring)
-
-        #print(abusemail)
-        finalstring=finalstring+abusemail+' '+domainName+' '+ipadresss
-        print(finalstring)
-    except socket.error:
-        print(domainName+" ERROR_Incorrect_web_adress_given_ERROR")
+    NotCheckedURL=line.strip()
+    print(FindAbuse(NotCheckedURL))
 file1.close()
 
 
