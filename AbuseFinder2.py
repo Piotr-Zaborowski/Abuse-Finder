@@ -53,8 +53,9 @@ def DecypherURL(domainName): #Function for replacing hxxps:// , hxxp:// , [.]
 
 def FindAbuse(NotCheckedURL): #main function, that returns abuse email adress for any giver URL
     finalstring = ''
-    NotDecyphered = ShortenURL(NotCheckedURL)
-    domainName = DecypherURL(NotDecyphered)
+
+    NotDecyphered = DecypherURL(NotCheckedURL)
+    domainName = ShortenURL(NotDecyphered)
     try:
         ipadresss = (socket.gethostbyname(domainName))  # Getting IP adress for given www
         obj = IPWhois(ipadresss)
