@@ -36,7 +36,10 @@ def ShortenURL(domainName): #shortening URL for it just to ba a diomain adress
                 return domainName[0:domainName.index(str2)]
             else:
                 return domainName;
-    endaplace = domainName.index(str2, startplece+1)
+    try:
+        endaplace = domainName.index(str2, startplece+1)
+    except:
+        endaplace = len(domainName)
     shortenDomainName = domainName[startplece:endaplace]
     return shortenDomainName
 
@@ -67,8 +70,6 @@ def FindAbuse(NotCheckedURL): #main function, that returns abuse email adress fo
     except socket.error:
         print(domainName+" ERROR_Incorrect_web_adress_given_ERROR")
     return finalstring
-
-
 
 # Using readline()
 file1 = open('doobrobki.txt', 'r')
